@@ -40,7 +40,7 @@ export function HomePage() {
   }, [])
 
   const handleAddUser = async (event: FormEvent) => {
-    e.preventDefault()
+    event.preventDefault()
     try {
       setUsers((oldUsers) => [...oldUsers, user])
       await UserServices.addUser(user)
