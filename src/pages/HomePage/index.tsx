@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { UserServices } from './services/user'
-import { IUser } from './interfaces/user'
+import { UserServices } from '../../services/user'
+import { IUser } from '../../interfaces/user'
 
-function App() {
+export function HomePage() {
   const [users, setUsers] = useState<Array<IUser>>([])
 
   const getUsers = async () => {
@@ -24,5 +24,3 @@ function App() {
     </>
   )
 }
-
-export default App
