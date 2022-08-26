@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { UserServices } from '../../services/user'
+import { UserServices } from '../../services/'
 import { IUser } from '../../interfaces/user'
 
 export function HomePage() {
