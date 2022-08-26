@@ -1,21 +1,21 @@
 export interface IUser {
   address: {
-    city: string
     geolocation: {
       lat: string
       long: string
     }
-    number: 7682
+    city: string
+    number: number
     street: string
     zipcode: string
   }
-  email: string
-  id: number
   name: {
     firstname: string
     lastname: string
   }
+  email: string
+  username: string
   password: string
   phone: string
-  username: string
+  id?: number
 }
