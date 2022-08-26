@@ -2,6 +2,8 @@ import { FormEvent, useEffect, useState } from 'react'
 import { UserServices } from '../../services/'
 import { IUser } from '../../interfaces/user'
 
+import DataTable from 'react-data-table-component'
+
 const user = {
   address: {
     geolocation: {
@@ -22,6 +24,23 @@ const user = {
   password: '12345',
   phone: '1-570-236-7033',
 }
+
+const headers = [
+  {
+    id: 1,
+    name: 'E-MAIL',
+    selector: (row: IUser) => row.email,
+    sortable: true,
+    reorder: true,
+  },
+  {
+    id: 2,
+    name: 'NOME',
+    selector: (row: IUser) => row.name.firstname,
+    sortable: true,
+    reorder: true,
+  },
+]
 
 export function HomePage() {
   const [users, setUsers] = useState<Array<IUser>>([])
@@ -51,11 +70,24 @@ export function HomePage() {
 
   return (
     <>
-      <ul>
-        {users.map((user: IUser) => {
-          return <li key={user.email}>{user.email}</li>
-        })}
-      </ul>
+      <DataTable
+        columns={headers}
+        data={users}
+        // conditionalRowStyles={conditionalRowStyles}
+        defaultSortFieldId={1}
+        expandableRows
+        // customStyles={styles}
+        // expandableRowsComponent={({ data }) => (
+        //   <EmployersCompany userRow={data} />
+        // )}
+        // progressPending={pending}
+        // expandableIcon={{
+        //   collapsed: (
+        //     <TiArrowSortedDown fill={colors.primary.darker} size="20" />
+        //   ),
+        //   expanded: <TiArrowSortedUp fill={colors.primary.darker} size="20" />,
+        // }}
+      />
       <form method="post" onSubmit={handleAddUser}>
         <button type="submit">Adicionar Usuário</button>
       </form>
