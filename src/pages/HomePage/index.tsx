@@ -112,7 +112,6 @@ export function HomePage() {
           </MyButton>
           <MyButton
             onClick={() => {
-              console.log(row.id)
               handleOpenModal()
               setSelectedUser({
                 ...selectedUser,
@@ -170,7 +169,6 @@ export function HomePage() {
       (user: IUser) => user.id === selectedUser.id
     )
 
-    console.log(currentUserFromList)
     const newUser = {
       address: {
         geolocation: {
@@ -191,6 +189,7 @@ export function HomePage() {
       },
       phone: selectedUser.phone,
     }
+
     try {
       if (isModalAdd) {
         await UserServices.addUser(newUser)
@@ -201,6 +200,7 @@ export function HomePage() {
       }
       setUsers((oldUsers) => [...oldUsers, newUser])
       handleOpenModal()
+      setIsModalAdd(() => false)
     } catch (error) {
       console.error({ error })
       if (isModalAdd) {
@@ -208,11 +208,15 @@ export function HomePage() {
           NotifyTypes.ERROR,
           'Erro ao cadastrar usuário, por favor tente novamente'
         )
+        setIsModalAdd(() => false)
+        handleOpenModal()
       } else {
         Notify(
           NotifyTypes.ERROR,
           'Erro ao editar usuário, por favor tente novamente'
         )
+        setIsModalAdd(() => false)
+        handleOpenModal()
       }
     }
   }
@@ -234,7 +238,7 @@ export function HomePage() {
             className="closeButton"
             onClick={() => {
               setIsModalOpen((value) => !value)
-              setIsModalAdd((oldValue: boolean) => !oldValue)
+              setIsModalAdd(() => false)
             }}
           >
             <MdClose size="18" />
@@ -324,7 +328,7 @@ export function HomePage() {
         <AddButton
           onClick={() => {
             setSelectedUser(initializeSelectedUser)
-            setIsModalAdd((oldValue: boolean) => !oldValue)
+            setIsModalAdd(() => true)
             handleOpenModal()
           }}
         />
