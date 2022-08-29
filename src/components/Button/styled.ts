@@ -31,10 +31,10 @@ export const MyButton = styled.button<MyButtonTypes>`
     min-height: ${small ? '40px' : '56px'};
     max-height: 520px;
     padding: 0 5px;
-    font-weight: 700;
+    font-weight: 600;
+    font-family: Montserrat, sans-serif;
     align-self: flex-end;
     margin-top: 20px;
-    font-family: Inter;
     width: ${customSize ?? '100%'};
     height: auto;
     color: ${outlined ? colors.primary.medium : '#fff'};

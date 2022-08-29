@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { colors } from '../../theme'
 
 export const Wrapper = styled.div`
@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
 `
 
 export const Input = styled.input`
-  width: 100%;
+  width: 480px;
   height: 100%;
   border: none;
   border-radius: 4px;
@@ -26,6 +26,6 @@ export const Input = styled.input`
 export const IconWrapper = styled.div`
   position: absolute;
   bottom: 5px;
-  right: -10px;
+  right: 5px;
   cursor: default;
 `

@@ -55,6 +55,10 @@ export const ModalContent = styled.div`
     align-self: center;
   }
 
+  form {
+    width: 100%;
+  }
+
   .closeButton {
     position: absolute;
     top: 20px;

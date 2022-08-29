@@ -181,7 +181,7 @@ export function HomePage() {
       if (isModalAdd) {
         await UserServices.addUser(newUser)
       } else {
-        await UserServices.updateUser(newUser, selectedUser.id)
+        await UserServices.updateUser(selectedUser.id, newUser)
       }
       setUsers((oldUsers) => [...oldUsers, newUser])
     } catch (error) {
@@ -264,7 +264,6 @@ export function HomePage() {
             <Button
               small
               type="button"
-              customSize="40%"
               onClick={() => {
                 handleAddUser()
               }}
