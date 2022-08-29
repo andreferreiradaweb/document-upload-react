@@ -15,7 +15,6 @@ import {
   ModalContent,
   styles,
   customStyleModal,
-  WrapperInputs,
 } from './styles'
 import { AddButton } from '../../components/AddButton'
 import { InputSelected } from '../../components/InputSelected'
@@ -113,6 +112,7 @@ export function HomePage() {
           </MyButton>
           <MyButton
             onClick={() => {
+              console.log(row.id)
               handleOpenModal()
               setSelectedUser({
                 ...selectedUser,
@@ -122,6 +122,7 @@ export function HomePage() {
                 city: row.address.city,
                 street: row.address.street,
                 number: String(row.address.number),
+                id: Number(row.id),
               })
             }}
           >
@@ -166,26 +167,48 @@ export function HomePage() {
 
   const handleAddUser = async () => {
     const newUser = {
-      name: {
-        firstname: selectedUser.firstname,
+      address: {
+        geolocation: {
+          lat: '-37.3159',
+          long: '81.1496',
+        },
+        city: selectedUser.city,
+        street: selectedUser.street,
+        number: Number(selectedUser.number),
+        zipcode: '12926-3874',
       },
       email: selectedUser.email,
-      phone: selectedUser.phone,
-      address: {
-        city: selectedUser.city,
-        number: Number(selectedUser.number),
-        street: selectedUser.street,
+      username: 'johnd',
+      password: 'm38rmF$',
+      name: {
+        firstname: selectedUser.firstname,
+        lastname: 'doe',
       },
+      phone: 'ghfghfghfg',
     }
     try {
       if (isModalAdd) {
         await UserServices.addUser(newUser)
+        Notify(NotifyTypes.SUCCESS, 'Usuário adicionado com sucesso')
       } else {
         await UserServices.updateUser(selectedUser.id, newUser)
+        Notify(NotifyTypes.SUCCESS, 'Usuário atualizado com sucesso')
       }
       setUsers((oldUsers) => [...oldUsers, newUser])
+      handleOpenModal()
     } catch (error) {
       console.error({ error })
+      if (isModalAdd) {
+        Notify(
+          NotifyTypes.ERROR,
+          'Erro ao cadastrar usuário, por favor tente novamente'
+        )
+      } else {
+        Notify(
+          NotifyTypes.ERROR,
+          'Erro ao editar usuário, por favor tente novamente'
+        )
+      }
     }
   }
 
@@ -206,7 +229,7 @@ export function HomePage() {
             className="closeButton"
             onClick={() => {
               setIsModalOpen((value) => !value)
-              setIsModalAdd(false)
+              setIsModalAdd((oldValue: boolean) => !oldValue)
             }}
           >
             <MdClose size="18" />
