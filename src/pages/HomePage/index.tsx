@@ -166,6 +166,11 @@ export function HomePage() {
   }, [])
 
   const handleAddUser = async () => {
+    const currentUserFromList = users.filter(
+      (user: IUser) => user.id === selectedUser.id
+    )
+
+    console.log(currentUserFromList)
     const newUser = {
       address: {
         geolocation: {
@@ -184,7 +189,7 @@ export function HomePage() {
         firstname: selectedUser.firstname,
         lastname: 'doe',
       },
-      phone: 'ghfghfghfg',
+      phone: selectedUser.phone,
     }
     try {
       if (isModalAdd) {

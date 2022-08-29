@@ -1,8 +1,8 @@
 export interface IUser {
   address: {
     geolocation?: {
-      lat: string
-      long: string
+      lat?: string
+      long?: string
     }
     city: string
     number: number
