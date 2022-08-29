@@ -31,6 +31,7 @@ export const MyButton = styled.button<MyButtonTypes>`
     min-height: ${small ? '40px' : '56px'};
     max-height: 520px;
     padding: 0 5px;
+    padding-bottom: 3px;
     font-weight: 600;
     font-family: Montserrat, sans-serif;
     align-self: flex-end;

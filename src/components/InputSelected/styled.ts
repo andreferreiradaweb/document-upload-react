@@ -13,12 +13,13 @@ export const Wrapper = styled.div`
 `
 
 export const Input = styled.input`
-  width: 480px;
+  width: 100%;
   height: 100%;
   border: none;
   border-radius: 4px;
   padding: 10px;
   outline: none;
+  position: relative;
   margin-top: 5px;
   background-color: ${colors.neutral.ligth};
 `
