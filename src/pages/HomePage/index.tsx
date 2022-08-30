@@ -184,14 +184,6 @@ export function HomePage() {
     }
   }
 
-  // function handleChange(event: any) {
-  //   event.preventDefault()
-  //   setSelectedUser({
-  //     ...selectedUser,
-  //     [event.target.name]: String(event.target.value),
-  //   })
-  // }
-
   async function handlePressSubmit() {
     const { city, email, firstname, number, phone, street } = values
     const newUser = {
