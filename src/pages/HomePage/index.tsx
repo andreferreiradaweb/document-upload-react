@@ -293,17 +293,6 @@ export function HomePage() {
             data={users || []}
             defaultSortFieldId={1}
             customStyles={styles}
-            // conditionalRowStyles={conditionalRowStyles}
-            // expandableRowsComponent={({ data }) => (
-            //   <EmployersCompany userRow={data} />
-            // )}
-            // progressPending={pending}
-            // expandableIcon={{
-            //   collapsed: (
-            //     <TiArrowSortedDown fill={colors.primary.darker} size="20" />
-            //   ),
-            //   expanded: <TiArrowSortedUp fill={colors.primary.darker} size="20" />,
-            // }}
           />
         </WrapperDataTable>
         <AddButton
