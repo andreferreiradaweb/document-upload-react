@@ -20,55 +20,27 @@ import { AddButton } from '../../components/AddButton'
 import { InputSelected } from '../../components/InputSelected'
 import { Notify, NotifyTypes } from '../../components/Notify'
 import { Button } from '../../components/Button'
+import { useFormik } from 'formik'
 
-const initializeUser = {
-  address: {
-    geolocation: {
-      lat: '',
-      long: '',
-    },
-    city: '',
-    number: 0,
-    street: '',
-    zipcode: '',
-  },
-  name: {
-    firstname: '',
-    lastname: '',
-  },
-  email: '',
-  username: '',
-  password: '',
-  phone: '',
-}
-
-const initializeSelectedUser = {
+const initialValues = {
   firstname: '',
   email: '',
   phone: '',
   city: '',
   street: '',
   number: '',
-  id: 0,
-}
-
-interface IUserState {
-  firstname: string
-  email: string
-  phone: string
-  city: string
-  street: string
-  number: string
-  id: number
 }
 
 export function HomePage() {
-  const [users, setUsers] = useState<Array<IUser>>([initializeUser])
+  const [users, setUsers] = useState<Array<IUser> | null>(null)
   const [isModalAdd, setIsModalAdd] = useState<boolean>(false)
-  const [selectedUser, setSelectedUser] = useState<IUserState>(
-    initializeSelectedUser
-  )
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const { values, handleChange, handleSubmit, setValues } = useFormik({
+    initialValues,
+    onSubmit: handlePressSubmit,
+  })
 
   const headers = [
     {
@@ -110,21 +82,7 @@ export function HomePage() {
           >
             <HiOutlineTrash />
           </MyButton>
-          <MyButton
-            onClick={() => {
-              handleOpenModal()
-              setSelectedUser({
-                ...selectedUser,
-                firstname: row.name.firstname,
-                email: row.email,
-                phone: row.phone,
-                city: row.address.city,
-                street: row.address.street,
-                number: String(row.address.number),
-                id: Number(row.id),
-              })
-            }}
-          >
+          <MyButton onClick={() => handlePressEdit(row.id)}>
             <HiOutlinePencil />
           </MyButton>
         </>
@@ -132,12 +90,29 @@ export function HomePage() {
     },
   ]
 
-  async function handleOpenModal() {
+  async function toggleModal() {
     setIsModalOpen((value) => !value)
+  }
+
+  function handlePressEdit(userId: number) {
+    const user = users?.find((user) => user.id === userId)
+    if (!user) return
+    setValues({
+      firstname: user.name.firstname,
+      city: user.address.city,
+      email: user.email,
+      phone: user.phone,
+      number: user.address.number.toString(),
+      street: user.address.street,
+    })
+    toggleModal()
+    setSelectedUserId(userId)
+    setIsModalAdd(false)
   }
 
   async function handleDeleteItem(userId: number) {
     try {
+      if (!users) return
       await UserServices.deleteUser(userId)
       const newUsers = users.filter((user: IUser) => user.id !== userId)
       setUsers(newUsers)
@@ -164,69 +139,86 @@ export function HomePage() {
     getUsers()
   }, [])
 
-  const handleAddUser = async () => {
-    const currentUserFromList = users.filter(
-      (user: IUser) => user.id === selectedUser.id
-    )
+  const addUser = async (user: Omit<IUser, 'id'>) => {
+    try {
+      const newUser = await UserServices.addUser(user)
+      Notify(NotifyTypes.SUCCESS, 'Usuário adicionado com sucesso')
 
+      setUsers((oldUsers) =>
+        oldUsers
+          ? [...oldUsers, { ...user, id: newUser.id }]
+          : [{ ...user, id: newUser.id }]
+      )
+    } catch (error) {
+      console.error({ error })
+
+      Notify(
+        NotifyTypes.ERROR,
+        'Erro ao cadastrar usuário, por favor tente novamente'
+      )
+    } finally {
+      toggleModal()
+    }
+  }
+
+  const updateUser = async (newUser: IUser) => {
+    try {
+      if (!users) return
+      await UserServices.updateUser(newUser)
+      Notify(NotifyTypes.SUCCESS, 'Usuário atualizado com sucesso')
+
+      const updatedUsers = users.map((user) =>
+        user.id === newUser.id ? newUser : user
+      )
+
+      setUsers(updatedUsers)
+    } catch (error) {
+      console.error({ error })
+
+      Notify(
+        NotifyTypes.ERROR,
+        'Erro ao atualizar usuário, por favor tente novamente'
+      )
+    } finally {
+      toggleModal()
+    }
+  }
+
+  // function handleChange(event: any) {
+  //   event.preventDefault()
+  //   setSelectedUser({
+  //     ...selectedUser,
+  //     [event.target.name]: String(event.target.value),
+  //   })
+  // }
+
+  async function handlePressSubmit() {
+    const { city, email, firstname, number, phone, street } = values
     const newUser = {
       address: {
         geolocation: {
           lat: '-37.3159',
           long: '81.1496',
         },
-        city: selectedUser.city,
-        street: selectedUser.street,
-        number: Number(selectedUser.number),
+        city,
+        number: Number(number),
+        street,
         zipcode: '12926-3874',
       },
-      email: selectedUser.email,
-      username: 'johnd',
-      password: 'm38rmF$',
       name: {
-        firstname: selectedUser.firstname,
+        firstname,
         lastname: 'doe',
       },
-      phone: selectedUser.phone,
+      email,
+      phone,
     }
-
-    try {
-      if (isModalAdd) {
-        await UserServices.addUser(newUser)
-        Notify(NotifyTypes.SUCCESS, 'Usuário adicionado com sucesso')
-      } else {
-        await UserServices.updateUser(selectedUser.id, newUser)
-        Notify(NotifyTypes.SUCCESS, 'Usuário atualizado com sucesso')
-      }
-      setUsers((oldUsers) => [...oldUsers, newUser])
-      handleOpenModal()
-      setIsModalAdd(() => false)
-    } catch (error) {
-      console.error({ error })
-      if (isModalAdd) {
-        Notify(
-          NotifyTypes.ERROR,
-          'Erro ao cadastrar usuário, por favor tente novamente'
-        )
-        setIsModalAdd(() => false)
-        handleOpenModal()
-      } else {
-        Notify(
-          NotifyTypes.ERROR,
-          'Erro ao editar usuário, por favor tente novamente'
-        )
-        setIsModalAdd(() => false)
-        handleOpenModal()
+    if (isModalAdd) {
+      await addUser(newUser)
+    } else {
+      if (selectedUserId) {
+        await updateUser({ id: selectedUserId, ...newUser })
       }
     }
-  }
-
-  function handleChange(event: any) {
-    event.preventDefault()
-    setSelectedUser({
-      ...selectedUser,
-      [event.target.name]: String(event.target.value),
-    })
   }
 
   return (
@@ -244,61 +236,58 @@ export function HomePage() {
             <MdClose size="18" />
           </button>
           <div className="hr"></div>
-          <form>
+          <form onSubmit={handleSubmit}>
             <InputSelected
               disabled={false}
               style={{ marginTop: '10px' }}
               label="Nome"
               name="firstname"
-              onChange={(event: any) => handleChange(event)}
-              value={selectedUser.firstname ?? ''}
+              onChange={handleChange}
+              value={values.firstname}
             />
             <InputSelected
               disabled={false}
               style={{ marginTop: '10px' }}
               label="E-mail"
               name="email"
-              onChange={(event: any) => handleChange(event)}
-              value={selectedUser.email ?? ''}
+              onChange={handleChange}
+              value={values.email}
             />
             <InputSelected
               disabled={false}
               style={{ marginTop: '10px' }}
               label="Telefone"
               name="phone"
-              onChange={(event: any) => handleChange(event)}
-              value={selectedUser.phone ?? ''}
+              onChange={handleChange}
+              value={values.phone}
             />
             <InputSelected
               disabled={false}
               style={{ marginTop: '10px' }}
               label="Cidade"
               name="city"
-              onChange={(event: any) => handleChange(event)}
-              value={selectedUser.city ?? ''}
+              onChange={handleChange}
+              value={values.city}
             />
             <InputSelected
               disabled={false}
               style={{ marginTop: '10px' }}
               label="Rua"
               name="street"
-              onChange={(event: any) => handleChange(event)}
-              value={selectedUser.street ?? ''}
+              onChange={handleChange}
+              value={values.street}
             />
             <InputSelected
               disabled={false}
               style={{ marginTop: '10px' }}
               label="Número"
               name="number"
-              onChange={(event: any) => handleChange(event)}
-              value={selectedUser.number ?? ''}
+              onChange={handleChange}
+              value={values.number}
             />
             <Button
               small
-              type="button"
-              onClick={() => {
-                handleAddUser()
-              }}
+              type="submit"
               title={isModalAdd ? 'Cadastrar' : 'Atualizar'}
             />
           </form>
@@ -309,7 +298,7 @@ export function HomePage() {
         <WrapperDataTable>
           <DataTable
             columns={headers}
-            data={users}
+            data={users || []}
             defaultSortFieldId={1}
             customStyles={styles}
             // conditionalRowStyles={conditionalRowStyles}
@@ -327,9 +316,10 @@ export function HomePage() {
         </WrapperDataTable>
         <AddButton
           onClick={() => {
-            setSelectedUser(initializeSelectedUser)
-            setIsModalAdd(() => true)
-            handleOpenModal()
+            setValues(initialValues)
+            setSelectedUserId(null)
+            setIsModalAdd(true)
+            toggleModal()
           }}
         />
       </Wrapper>

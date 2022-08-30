@@ -1,8 +1,8 @@
 export interface IUser {
   address: {
-    geolocation?: {
-      lat?: string
-      long?: string
+    geolocation: {
+      lat: string
+      long: string
     }
     city: string
     number: number
@@ -17,5 +17,5 @@ export interface IUser {
   username?: string
   password?: string
   phone: string
-  id?: number
+  id: number
 }

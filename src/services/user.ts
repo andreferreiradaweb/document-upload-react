@@ -6,13 +6,13 @@ export class UserServices {
     return data
   }
 
-  static async addUser(formData: IUser) {
-    const { data } = await Api.post(`/users`, formData)
+  static async addUser(user: Omit<IUser, 'id'>) {
+    const { data } = await Api.post<IUser>(`/users`, user)
     return data
   }
 
-  static async updateUser(userId: number, formData: IUser) {
-    const { data } = await Api.put(`/users/${userId}`, formData)
+  static async updateUser(user: IUser) {
+    const { data } = await Api.put(`/users/${user.id}`, user)
     return data
   }
 
