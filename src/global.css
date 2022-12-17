@@ -2,19 +2,14 @@ body {
     margin: 0;
     padding: 0;
     font-family: Montserrat, sans-serif;
-    box-sizing: border-box;
-}
-
-input {
+  }
+  
+* {
+  box-sizing: border-box;
   box-sizing: border-box;
 }
 
-.rdt_Table {
-    height: 400px !important;
-    overflow-x: auto;
-}
-
-button {
+button, a {
     cursor: pointer;
 }
 
