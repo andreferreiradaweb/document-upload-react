@@ -1,11 +1,7 @@
 import { Wrapper, Container, PageContent } from './styleds'
-import { ReactNode } from 'react'
+import { LayoutProps } from './types'
 import { Sidebar } from '../Sidebar'
 import { Header } from '../Header'
-
-interface LayoutProps {
-  children: ReactNode
-}
 
 export const Layout = ({ children }: LayoutProps) => {
   return (

@@ -1,9 +1,5 @@
-import { ReactNode } from 'react'
-import { SidebarProvider } from './sidebar'
-
-interface AppContextsProps {
-  children: ReactNode
-}
+import { SidebarProvider } from './sidebarContext'
+import { AppContextsProps } from './types'
 
 export const AppContexts = ({ children }: AppContextsProps) => (
   <SidebarProvider>{children}</SidebarProvider>
