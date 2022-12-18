@@ -18,7 +18,7 @@ export const Container = styled.div`
 export const PageContent = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 100%;
-  align-items: center;
+  width: 100%;
+  align-items: flex-start;
   padding: 20px;
 `
