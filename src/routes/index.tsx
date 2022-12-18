@@ -10,8 +10,8 @@ export function MyRoutes() {
       <AppContexts>
         <ToastContainer closeButton={false} />
         <Routes>
-          <Route path={ROUTES.homePath} element={<HomePage />} />
-          <Route path={ROUTES.docsPath} element={<DocsPage />} />
+          <Route path={ROUTES.home.path} element={<HomePage />} />
+          <Route path={ROUTES.docs.path} element={<DocsPage />} />
         </Routes>
       </AppContexts>
     </BrowserRouter>

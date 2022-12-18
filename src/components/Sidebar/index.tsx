@@ -18,9 +18,9 @@ export const Sidebar = () => {
       smarthphone={windowSize.isDeviceSmarthphone}
     >
       <ItemLink
-        to={ROUTES.homePath}
+        to={ROUTES.home.path}
         status={sidebarStatus}
-        active={location.pathname === ROUTES.homePath}
+        active={location.pathname === ROUTES.home.path}
         smarthphone={windowSize.isDeviceSmarthphone}
       >
         <p>Início</p>
@@ -29,9 +29,9 @@ export const Sidebar = () => {
         </span>
       </ItemLink>
       <ItemLink
-        to={ROUTES.docsPath}
+        to={ROUTES.docs.path}
         status={sidebarStatus}
-        active={location.pathname === ROUTES.docsPath}
+        active={location.pathname === ROUTES.docs.path}
         smarthphone={windowSize.isDeviceSmarthphone}
       >
         <p>Meus Documentos</p>
