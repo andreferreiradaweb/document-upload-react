@@ -10,7 +10,7 @@ export const Breadcrumb = () => {
       <TextElement>
         <Link to={ROUTES.home.path}>Início</Link>
         {location.pathname === ROUTES.docs.path && (
-          <SpanElement>{' > '}Meus documentos</SpanElement>
+          <SpanElement>&nbsp;&nbsp;{' > '}&nbsp;Meus documentos</SpanElement>
         )}
       </TextElement>
     </Wrapper>
