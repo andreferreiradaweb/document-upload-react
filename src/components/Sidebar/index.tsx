@@ -1,5 +1,4 @@
 import { useLocation } from 'react-router-dom'
-import Modal from 'react-modal'
 import { AiFillHome } from 'react-icons/ai'
 import { VscFiles } from 'react-icons/vsc'
 import { ImInfo } from 'react-icons/im'
@@ -8,6 +7,7 @@ import { useSidebarContext } from '../../contexts/sidebarContext'
 import { useWindowSize } from '../../hooks/useWindowSize'
 import { ROUTES } from '../../constants/routes'
 import { useState } from 'react'
+import { ModalAbout } from '../ModalAbout'
 
 export const Sidebar = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -21,7 +21,7 @@ export const Sidebar = () => {
 
   return (
     <>
-      <Modal isOpen={isModalOpen} onRequestClose={handleModal}></Modal>
+      <ModalAbout isOpen={isModalOpen} onRequestClose={handleModal} />
       <Wrapper
         status={sidebarStatus}
         smarthphone={windowSize.isDeviceSmarthphone}
