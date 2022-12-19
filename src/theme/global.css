@@ -4,6 +4,7 @@
   --blue-light: #0e3f8b;
   --blue-extra-light: #718cb5;
   --gray: #a3a3a3;
+  --gray-text: #656565;
 }
 
 body {
@@ -11,6 +12,7 @@ body {
     padding: 0;
     font-family: Montserrat, sans-serif;
     background-color: var(--white);
+    color: var(--gray);
   }
   
 * {
