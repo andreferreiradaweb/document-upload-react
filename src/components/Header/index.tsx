@@ -1,4 +1,4 @@
-import { Wrapper, Image, IconWrapper, ImageWrapper, IconLink } from './styleds'
+import { Wrapper, IconWrapper, IconLink, LogoWrapper, Logo } from './styleds'
 import { HiMenu } from 'react-icons/hi'
 import ImageLogo from '../../assets/logo.png'
 import { useSidebarContext } from '../../contexts/sidebarContext'
@@ -13,9 +13,9 @@ export const Header = () => {
           <HiMenu size="100%" />
         </IconWrapper>
       </IconLink>
-      <ImageWrapper>
-        <Image src={ImageLogo} />
-      </ImageWrapper>
+      <LogoWrapper>
+        <Logo src={ImageLogo} />
+      </LogoWrapper>
     </Wrapper>
   )
 }

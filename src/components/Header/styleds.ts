@@ -13,19 +13,23 @@ export const Wrapper = styled.div`
   align-items: center;
 `
 
-export const ImageWrapper = styled.div`
+export const LogoWrapper = styled.div`
   width: 8.75rem;
   height: 3.25rem;
   margin-left: 40px;
+
+  @media screen and (max-width: 576px) {
+    margin-left: 20px;
+  }
 `
 
-export const Image = styled.img`
+export const Logo = styled.img`
   width: 100%;
 `
 
 export const IconLink = styled.a``
 
-export const IconWrapper = styled.a`
+export const IconWrapper = styled.div`
   height: 1.375rem;
   width: auto;
   display: flex;
