@@ -19,6 +19,7 @@ const getCssColor = (active: boolean) => {
   return active
     ? css`
         color: var(--blue-light);
+        font-weight: 600;
       `
     : css`
         color: var(--gray);
@@ -83,6 +84,7 @@ export const Item = styled.a<ItemProps>`
     font-size: 1rem;
     transition: ease 0.5s;
     white-space: nowrap;
+    color: var(--gray);
   }
 
   span {
