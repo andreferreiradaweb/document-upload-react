@@ -1,6 +1,6 @@
 import Modal from 'react-modal'
 import { MdClose } from 'react-icons/md'
-import { customStyleModal } from './data'
+import { customStyleModal } from './customStyle'
 import {
   Wrapper,
   Content,

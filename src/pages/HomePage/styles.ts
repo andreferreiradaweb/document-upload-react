@@ -52,15 +52,6 @@ export const TitleElement = styled.h1`
   }
 `
 
-export const Button = styled.button`
-  background-color: var(--blue-light);
-  border: none;
-  padding: 7px 10px;
-  width: 200px;
-  border-radius: 8px;
-  color: var(--white);
-`
-
 export const TextElement = styled.div`
   @media screen and (max-width: 900px) {
     text-align: center;

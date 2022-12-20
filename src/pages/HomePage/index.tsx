@@ -1,4 +1,5 @@
 import Ilustration from '../../assets/ilustration-about.svg'
+import { Button } from '../../components/Button'
 import { Layout } from '../../components/Layout'
 import {
   ImageElement,
@@ -6,7 +7,6 @@ import {
   Wrapper,
   Content,
   TitleElement,
-  Button,
   TextElement,
   ListElement,
   ItemElement,
@@ -29,7 +29,12 @@ export const HomePage = () => {
             <ItemElement>Velocidade</ItemElement>
             <ItemElement>Qualidade</ItemElement>
           </ListElement>
-          <Button>Assinar Premium</Button>
+          <Button
+            type="button"
+            onClickButton={() => alert('Assine o Premium!')}
+          >
+            Assinar Premium
+          </Button>
         </Content>
         <ImageWrapper>
           <ImageElement src={Ilustration} alt="" />
