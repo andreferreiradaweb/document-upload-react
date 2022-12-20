@@ -1,9 +1,9 @@
 import DataTable from 'react-data-table-component'
-import { DocumentsType } from '../ModalForm/types'
 import { datatableStyles } from './customStyles'
 import { WrapperDataTable } from './styleds'
 import { DatatableDocumentProps } from './types'
 import { format } from 'date-fns'
+import { DocumentsType } from '../../contexts/formDocumentContext/types'
 
 export const DatatableDocument = ({
   documents = [],

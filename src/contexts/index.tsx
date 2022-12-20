@@ -1,6 +1,9 @@
 import { SidebarProvider } from './sidebarContext'
+import { FormDocumentProvider } from './formDocumentContext'
 import { AppContextsProps } from './types'
 
 export const AppContexts = ({ children }: AppContextsProps) => (
-  <SidebarProvider>{children}</SidebarProvider>
+  <SidebarProvider>
+    <FormDocumentProvider>{children}</FormDocumentProvider>
+  </SidebarProvider>
 )

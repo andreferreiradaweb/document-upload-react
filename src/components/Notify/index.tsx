@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify'
-import { AiOutlineCloseCircle, AiOutlineCheckCircle } from 'react-icons/ai'
+import { AiOutlineCloseCircle } from 'react-icons/ai'
 import 'react-toastify/dist/ReactToastify.css'
 
 export enum NotifyTypes {
@@ -24,7 +24,7 @@ export const Notify = (notificationType: NotifyTypes, message: string) => {
       className: 'notify_success',
       bodyClassName: 'notify_body_success',
       progressClassName: 'notify_progress_success',
-      icon: <AiOutlineCheckCircle fill="#fff" />,
+      icon: <AiOutlineCloseCircle fill="#fff" />,
     })
     return
   }

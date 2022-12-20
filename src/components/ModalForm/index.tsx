@@ -32,7 +32,7 @@ export const ModalForm = ({
   return (
     <Modal style={customStyleModal} isOpen={isOpen} ariaHideApp={false}>
       <ModalContent>
-        <Title>Insira um título e descrição para o arquivo:</Title>
+        <Title>Título e descrição e nome para o arquivo:</Title>
         <CloseButton onClick={onRequestClose}>
           <MdClose size="22" />
         </CloseButton>
@@ -56,12 +56,15 @@ export const ModalForm = ({
               value={inputValues.description}
             />
             <Input
-              disabled
-              label="Arquivo"
+              disabled={false}
+              label="Nome do arquivo"
               name="fileName"
-              value={inputValues.fileName || ''}
+              maxLength={100}
+              onChange={onChange}
+              value={inputValues.fileName}
             />
             <InputDocument
+              accept="application/pdf"
               type="file"
               ref={inputElement}
               onChange={onChangeInputFile}

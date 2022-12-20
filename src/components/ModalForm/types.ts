@@ -1,19 +1,5 @@
 import { ChangeEvent, FormEvent } from 'react'
-
-export type DocumentsType = {
-  id: string | null
-  title: string
-  description: string
-  fileName: string
-  file: File
-  date: Date
-}
-
-export type InputValuesType = {
-  title: string
-  description: string
-  fileName: string
-}
+import { InputValuesType } from '../../contexts/formDocumentContext/types'
 
 export type ModalFormProps = {
   isOpen?: boolean
