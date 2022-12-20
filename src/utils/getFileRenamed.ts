@@ -9,7 +9,7 @@ export const getFileRenamed = ({
 }: GetFileRenamedTypes) => {
   return new File(
     [originalFile],
-    newName.replace(/[^a-zA-Z\s]/g, '').concat('.pdf'),
+    newName.replace(/[^a-zA-Z]/g, '').concat('.pdf'),
     {
       type: originalFile.type,
       lastModified: originalFile.lastModified,
