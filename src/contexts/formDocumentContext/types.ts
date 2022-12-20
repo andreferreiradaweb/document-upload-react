@@ -1,33 +1,30 @@
 import { ChangeEvent, FormEvent, ReactNode } from 'react'
 
-export type InputValuesType = {
-  title: string
-  description: string
-  fileName: string
-}
-
 export type FormDocumentProviderProps = {
   children: ReactNode
 }
 
-export type DocumentsType = {
+export type HandleToggleModalType = {
+  isModalEdit?: boolean
+}
+
+export type DocumentType = {
   id: string | null
   title: string
   description: string
   fileName: string
-  file: File
-  date: Date
+  file: File | null
+  date: Date | null
 }
 
 export type FormDocumentContextTypes = {
-  onChange(e: ChangeEvent<HTMLInputElement>): void
-  onSubmit(e: FormEvent<HTMLFormElement>): void
-  values: InputValuesType
-  onSetValues(initialValues: InputValuesType): void
-  file: File | null
-  documents: DocumentsType[]
-  handleInputChange(e: ChangeEvent<HTMLInputElement>): void
-  initialState: InputValuesType
-  handleToggleModal(): void
+  handleChange(e: ChangeEvent<HTMLInputElement>): void
+  handleSubmit(e: FormEvent<HTMLFormElement>): void
+  currentDocument: DocumentType
+  documents: DocumentType[]
+  handleInputDocumentChange(e: ChangeEvent<HTMLInputElement>): void
+  handleToggleModal({ isModalEdit }: HandleToggleModalType): void
   isModalOpen: boolean
+  handleDeleteDocument(id: string): void
+  handleEditDocument(id: string): void
 }

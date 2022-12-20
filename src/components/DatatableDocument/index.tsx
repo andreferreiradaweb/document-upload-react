@@ -1,59 +1,62 @@
 import DataTable from 'react-data-table-component'
+import { HiOutlineTrash, HiOutlinePencil } from 'react-icons/hi'
 import { datatableStyles } from './customStyles'
-import { WrapperDataTable } from './styleds'
+import { DatatableButton, WrapperDataTable } from './styleds'
 import { DatatableDocumentProps } from './types'
 import { format } from 'date-fns'
-import { DocumentsType } from '../../contexts/formDocumentContext/types'
+import { DocumentType } from '../../contexts/formDocumentContext/types'
+import { useFormDocumentContext } from '../../contexts/formDocumentContext'
 
 export const DatatableDocument = ({
   documents = [],
 }: DatatableDocumentProps) => {
+  const { handleDeleteDocument, handleEditDocument } = useFormDocumentContext()
   const headers = [
     {
       id: 1,
       name: 'Título',
-      selector: (row: DocumentsType) => row.title,
+      selector: (row: DocumentType) => row.title,
       sortable: true,
       reorder: true,
     },
     {
       id: 2,
       name: 'Descrição',
-      selector: (row: DocumentsType) => row.description,
+      selector: (row: DocumentType) => row.description,
       sortable: true,
       reorder: true,
     },
     {
       id: 3,
       name: 'Nome do Arquivo',
-      selector: (row: DocumentsType) => row.file.name,
+      selector: (row: DocumentType) => row.file.name,
       sortable: true,
       reorder: true,
     },
     {
       id: 4,
       name: 'Data e Hora de Criação',
-      selector: (row: DocumentsType) => format(row.date, 'dd/mm/yyyy HH:mm'),
+      selector: (row: DocumentType) => format(row.date, 'dd/mm/yyyy HH:mm'),
       sortable: true,
       reorder: true,
     },
-    // {
-    //   id: 5,
-    //   name: '',
-    //   selector: (row: DocumentsType) => (
-    //     <>
-    //       <DatatableButton
-    //         style={{ marginRight: '10px' }}
-    //         onClick={() => handleDeleteItem(Number(row.id))}
-    //       >
-    //         <HiOutlineTrash />
-    //       </DatatableButton>
-    //       <DatatableButton onClick={() => handlePressEdit(row.id)}>
-    //         <HiOutlinePencil />
-    //       </DatatableButton>
-    //     </>
-    //   ),
-    // },
+    {
+      id: 5,
+      name: '',
+      selector: (row: DocumentType) => (
+        <>
+          <DatatableButton
+            style={{ marginRight: '10px' }}
+            onClick={() => handleDeleteDocument(row.id)}
+          >
+            <HiOutlineTrash />
+          </DatatableButton>
+          <DatatableButton onClick={() => handleEditDocument(row.id)}>
+            <HiOutlinePencil />
+          </DatatableButton>
+        </>
+      ),
+    },
   ]
 
   return (

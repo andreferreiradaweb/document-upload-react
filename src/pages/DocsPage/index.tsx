@@ -7,28 +7,31 @@ import { useFormDocumentContext } from '../../contexts/formDocumentContext'
 
 export const DocsPage = () => {
   const {
-    onChange,
-    onSubmit,
-    values,
+    handleChange,
+    handleSubmit,
     handleToggleModal,
     isModalOpen,
     documents,
-    handleInputChange,
+    currentDocument,
+    handleInputDocumentChange,
   } = useFormDocumentContext()
 
   return (
     <Layout>
       <Wrapper>
         <ModalForm
-          onRequestClose={handleToggleModal}
+          onRequestClose={() => handleToggleModal({ isModalEdit: false })}
           isOpen={isModalOpen}
-          onChange={onChange}
-          onChangeInputFile={handleInputChange}
-          onSubmit={onSubmit}
-          inputValues={values}
+          onChange={handleChange}
+          onChangeInputFile={handleInputDocumentChange}
+          onSubmit={handleSubmit}
+          inputValues={currentDocument}
         />
         <DatatableDocument documents={documents} />
-        <Button type="button" onClickButton={handleToggleModal}>
+        <Button
+          type="button"
+          onClickButton={() => handleToggleModal({ isModalEdit: false })}
+        >
           Adicionar novo arquivo
         </Button>
       </Wrapper>

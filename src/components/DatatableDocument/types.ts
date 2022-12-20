@@ -1,5 +1,5 @@
-import { DocumentsType } from '../ModalForm/types'
+import { DocumentType } from '../../contexts/formDocumentContext/types'
 
 export interface DatatableDocumentProps {
-  documents: DocumentsType[]
+  documents: DocumentType[]
 }

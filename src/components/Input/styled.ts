@@ -22,7 +22,6 @@ export const InputElement = styled.input`
   outline: none;
   position: relative;
   margin-top: 5px;
-
   overflow: hidden;
 `
 

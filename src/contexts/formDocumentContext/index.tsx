@@ -2,11 +2,12 @@ import { ChangeEvent, createContext, useContext, useState } from 'react'
 import { Notify, NotifyTypes } from '../../components/Notify'
 import { getFileRenamed } from '../../utils/getFileRenamed'
 import { getRandomId } from '../../utils/getRandomId'
+import { initialDocumentValues } from './data'
 import {
-  DocumentsType,
+  DocumentType,
   FormDocumentContextTypes,
   FormDocumentProviderProps,
-  InputValuesType,
+  HandleToggleModalType,
 } from './types'
 
 const FormDocumentContext = createContext({} as FormDocumentContextTypes)
@@ -14,45 +15,79 @@ const FormDocumentContext = createContext({} as FormDocumentContextTypes)
 export const FormDocumentProvider = ({
   children,
 }: FormDocumentProviderProps) => {
-  const initialState = {
-    title: '',
-    description: '',
-    fileName: '',
-  }
-  const [values, setValues] = useState(initialState)
-  const [documents, setDocuments] = useState<DocumentsType[]>([])
-  const [file, setFile] = useState<File | null>(null)
+  const [documents, setDocuments] = useState<DocumentType[]>([])
+  const [currentDocument, setCurrentDocument] = useState<DocumentType>(
+    initialDocumentValues
+  )
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
-  const handleToggleModal = () => {
-    onSetValues(initialState)
+  const handleToggleModal = ({
+    isModalEdit = false,
+  }: HandleToggleModalType) => {
+    if (isModalEdit) {
+      return setIsModalOpen((oldValue) => !oldValue)
+    }
+    setCurrentDocument(initialDocumentValues)
     setIsModalOpen((oldValue) => !oldValue)
   }
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [event.target.name]: event.target.value })
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentDocument({
+      ...currentDocument,
+      [event.target.name]: event.target.value,
+    })
   }
 
-  const onSetValues = (initialValues: InputValuesType) => {
-    setValues(initialValues)
-  }
-
-  const handleInputChange = ({
+  const handleInputDocumentChange = ({
     currentTarget: { files },
   }: ChangeEvent<HTMLInputElement>) => {
-    if (files && files.length) {
-      if (!values.fileName) return setFile(files[0])
-      const newFile = getFileRenamed({
-        originalFile: files[0],
-        newName: values.fileName,
-      })
-      setFile(newFile)
+    if (!files || !files.length) {
+      return Notify(
+        NotifyTypes.ERROR,
+        'Algo deu errado com o documento, por favor tente novamente!'
+      )
     }
+    const newFile = getFileRenamed({
+      originalFile: files[0],
+      newName: currentDocument.fileName,
+    })
+    const newDocument = {
+      id: getRandomId(),
+      title: currentDocument.title,
+      description: currentDocument.description,
+      fileName: currentDocument.fileName,
+      date: null,
+      file: currentDocument.fileName ? newFile : files[0],
+    }
+    setCurrentDocument(newDocument)
   }
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const handleDeleteDocument = (documentId: string) => {
+    if (!documents) return
+    const newDocuments = documents.filter(
+      (document: DocumentType) => document.id !== documentId
+    )
+    setDocuments(newDocuments)
+    Notify(NotifyTypes.SUCCESS, 'Documento deletado com sucesso!')
+  }
+
+  const handleEditDocument = (documentId: string) => {
+    const document = documents?.find((document) => document.id === documentId)
+    if (!document) return
+    setCurrentDocument({
+      id: document.id,
+      title: document.title,
+      description: document.description,
+      fileName: document.fileName,
+      file: document.file,
+      date: null,
+    })
+    handleToggleModal({ isModalEdit: true })
+  }
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const { title, description, fileName } = values
+    const { title, description, file } = currentDocument
     if (!file)
       return Notify(NotifyTypes.ERROR, 'Você esqueceu de inserir um documento!')
 
@@ -71,31 +106,25 @@ export const FormDocumentProvider = ({
         'Quantidade de caracteres inválida(maximo permitido: 2000)!'
       )
 
-    const newDocumentData = {
-      id: getRandomId(),
-      title,
-      description,
-      fileName: fileName ?? String(file.name),
-      date: new Date(),
-      file,
-    }
-    await setDocuments((oldDocuments) => [...oldDocuments, newDocumentData])
+    setDocuments((oldDocuments) => [
+      ...oldDocuments,
+      { ...currentDocument, date: new Date() },
+    ])
     Notify(NotifyTypes.SUCCESS, 'Documento adicionado com sucesso!')
-    onSetValues(initialState)
-    handleToggleModal()
+    setCurrentDocument(initialDocumentValues)
+    handleToggleModal({ isModalEdit: false })
   }
 
   const contextValues = {
-    onChange,
-    onSubmit,
-    values,
-    onSetValues,
-    file,
+    handleChange,
+    handleSubmit,
+    currentDocument,
     documents,
-    handleInputChange,
-    initialState,
+    handleInputDocumentChange,
     handleToggleModal,
     isModalOpen,
+    handleDeleteDocument,
+    handleEditDocument,
   }
 
   return (
