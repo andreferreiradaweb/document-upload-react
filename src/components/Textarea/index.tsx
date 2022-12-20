@@ -2,7 +2,7 @@ import { IconWrapper, InputElement, Wrapper } from './styled'
 import { HiCheck } from 'react-icons/hi'
 import { InputProps } from './types'
 
-export function Input({
+export function Textarea({
   label,
   onChange,
   style,
@@ -10,14 +10,12 @@ export function Input({
   name,
   value,
   maxLength,
-  type,
 }: InputProps) {
   return (
     <>
       <Wrapper style={style}>
         {label && <label htmlFor="">{label}</label>}
         <InputElement
-          type={type}
           disabled={disabled}
           name={name}
           onChange={onChange}

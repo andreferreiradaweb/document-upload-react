@@ -16,11 +16,16 @@ export const useForm = (
     await callback() // triggering the callback
   }
 
+  const onSetValues = (initialValues: InputValuesType) => {
+    setValues(initialValues)
+  }
+
   // return values
   return {
     onChange,
     onSubmit,
     values,
+    onSetValues,
   }
 }
 

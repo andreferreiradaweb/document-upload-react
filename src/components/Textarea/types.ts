@@ -1,7 +1,5 @@
 import { ChangeEventHandler, HTMLInputTypeAttribute } from 'react'
 
-type InputTypes = 'input' | 'textarea'
-
 export type InputProps = {
   label?: string
   style?: React.CSSProperties
@@ -9,6 +7,5 @@ export type InputProps = {
   name?: string
   value: string
   maxLength?: number
-  type?: HTMLInputTypeAttribute
-  onChange?: ChangeEventHandler<HTMLInputElement>
+  onChange?: ChangeEventHandler<HTMLElement>
 }

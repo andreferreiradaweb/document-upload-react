@@ -33,7 +33,7 @@ export const DatatableDocument = ({
     {
       id: 4,
       name: 'Data e Hora de Criação',
-      selector: (row: DocumentsType) => format(row.date, 'dd/mm/yyyy'),
+      selector: (row: DocumentsType) => format(row.date, 'dd/mm/yyyy HH:mm'),
       sortable: true,
       reorder: true,
     },

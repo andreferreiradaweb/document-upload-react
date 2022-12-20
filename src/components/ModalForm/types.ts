@@ -12,13 +12,14 @@ export type DocumentsType = {
 export type InputValuesType = {
   title: string
   description: string
+  fileName: string
 }
 
 export type ModalFormProps = {
   isOpen?: boolean
   onRequestClose?(): void
   onSubmit?(e: FormEvent<HTMLFormElement>): void
-  onChange(e: ChangeEvent<HTMLInputElement>): void
+  onChange(e: ChangeEvent<HTMLElement>): void
   onChangeInputFile(e: ChangeEvent<HTMLInputElement>): void
   inputValues: InputValuesType
 }

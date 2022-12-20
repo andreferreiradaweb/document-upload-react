@@ -11,6 +11,7 @@ import { Notify, NotifyTypes } from '../../components/Notify'
 const initialState = {
   title: '',
   description: '',
+  fileName: '',
 }
 
 export const DocsPage = () => {
@@ -18,17 +19,22 @@ export const DocsPage = () => {
   const [documents, setDocuments] = useState<DocumentsType[]>([])
   const [file, setFile] = useState<File | null>(null)
 
-  const { onChange, onSubmit, values } = useForm(handleSubmit, initialState)
+  const { onChange, onSubmit, values, onSetValues } = useForm(
+    handleSubmit,
+    initialState
+  )
 
   const handleInputChange = ({
     currentTarget: { files },
   }: ChangeEvent<HTMLInputElement>) => {
     if (files && files.length) {
       setFile(files[0])
+      onSetValues({ ...values, fileName: files[0].name })
     }
   }
 
   const handleToggleModal = () => {
+    onSetValues(initialState)
     setIsModalOpen((oldValue) => !oldValue)
   }
 
@@ -48,6 +54,7 @@ export const DocsPage = () => {
     await setDocuments((oldDocuments) => [...oldDocuments, newDocumentData])
     console.log(documents)
     handleToggleModal()
+    onSetValues(initialState)
   }
 
   return (

@@ -13,6 +13,7 @@ import { ModalFormProps } from './types'
 import { Input } from '../Input'
 import { Button } from '../Button'
 import { useRef } from 'react'
+import { Textarea } from '../Textarea'
 
 export const ModalForm = ({
   isOpen = false,
@@ -42,16 +43,23 @@ export const ModalForm = ({
               style={{ marginTop: '10px' }}
               label="Titulo"
               name="title"
+              maxLength={100}
               onChange={onChange}
               value={inputValues.title}
             />
-            <Input
+            <Textarea
               disabled={false}
-              style={{ marginTop: '10px' }}
               label="Descrição"
               name="description"
+              maxLength={2000}
               onChange={onChange}
               value={inputValues.description}
+            />
+            <Input
+              disabled
+              label="Arquivo"
+              name="fileName"
+              value={inputValues.fileName || ''}
             />
             <InputDocument
               type="file"

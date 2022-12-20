@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
   width: 100%;
-  height: 40px;
+  height: 6rem;
   position: relative;
   margin-bottom: 30px;
 
@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   }
 `
 
-export const InputElement = styled.input`
+export const InputElement = styled.textarea`
   width: 100%;
   height: 100%;
   border: 1px solid var(--gray);
