@@ -40,6 +40,13 @@ export const WrapperButtons = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+
+  @media screen and (max-width: 576px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
 `
 
 export const CloseButton = styled.button`

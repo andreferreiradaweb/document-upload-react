@@ -71,7 +71,7 @@ export const ModalForm = ({
             />
           </WrapperInputs>
           <WrapperButtons>
-            <Button type="button" onClickButton={handleLoadFile}>
+            <Button secondary type="button" onClickButton={handleLoadFile}>
               Localizar arquivo
             </Button>
             <Button type="submit">Adicionar</Button>

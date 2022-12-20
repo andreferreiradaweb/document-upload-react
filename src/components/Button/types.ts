@@ -6,4 +6,5 @@ export interface ButtonProps {
   children: ReactNode
   onClickButton?(): void
   type: ButtonTypes
+  secondary?: boolean
 }

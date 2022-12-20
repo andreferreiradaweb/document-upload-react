@@ -1,9 +1,14 @@
 import { ButtonElement } from './styleds'
 import { ButtonProps } from './types'
 
-export const Button = ({ children, onClickButton, type }: ButtonProps) => {
+export const Button = ({
+  children,
+  onClickButton,
+  type,
+  secondary = false,
+}: ButtonProps) => {
   return (
-    <ButtonElement onClick={onClickButton} type={type}>
+    <ButtonElement secondary={secondary} onClick={onClickButton} type={type}>
       {children}
     </ButtonElement>
   )
