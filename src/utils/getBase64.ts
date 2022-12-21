@@ -10,7 +10,7 @@ export const getBase64 = (file: File) => {
     // on reader load somthing...
     reader.onload = () => {
       // Make a fileInfo Object
-      baseURL = reader.result
+      baseURL = String(reader.result)
       console.log(baseURL)
       resolve(baseURL)
     }
