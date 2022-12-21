@@ -13,7 +13,7 @@ export const DatatableDocument = ({
   documents = [],
 }: DatatableDocumentProps) => {
   const { handleDeleteDocument, handleEditDocument } = useFormDocumentContext()
-  const headers = [
+  const headers: any = [
     {
       id: 1,
       name: 'Título',

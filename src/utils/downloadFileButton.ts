@@ -11,7 +11,7 @@ export const getDowwnloadFromFile = async (file: File) => {
       // Setting various property values
       const alink = document.createElement('a')
       alink.href = fileURL
-      alink.download = base64
+      alink.download = String(base64)
       alink.click()
     })
   })
