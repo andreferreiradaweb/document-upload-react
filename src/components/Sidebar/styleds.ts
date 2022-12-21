@@ -27,6 +27,7 @@ const getCssColor = (active: boolean) => {
 }
 
 export const Wrapper = styled.div<WrapperProps>`
+  width: 1px;
   ${({ status }) => variantsWidth[SidebarStatusEnum[status]]};
   position: ${({ smarthphone }) => (smarthphone ? 'absolute' : 'static')};
   min-height: 100%;
