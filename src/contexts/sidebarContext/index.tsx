@@ -9,7 +9,7 @@ import {
 const SidebarContext = createContext({} as SidebarContextTypes)
 
 export const SidebarProvider = ({ children }: SidebarProviderProps) => {
-  const [sidebarStatus, setSidebarSize] = useState(SidebarStatusEnum.closed)
+  const [sidebarStatus, setSidebarSize] = useState(SidebarStatusEnum.hidden)
   const { windowSize } = useWindowSize()
 
   useEffect(() => {
