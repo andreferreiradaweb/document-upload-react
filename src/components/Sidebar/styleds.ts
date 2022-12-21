@@ -4,14 +4,14 @@ import { SidebarStatusEnum } from '../../contexts/sidebarContext/types'
 import { Link } from 'react-router-dom'
 
 const variantsWidth = {
+  hidden: css`
+    width: 1px;
+  `,
   closed: css`
     width: 4.75rem;
   `,
   opened: css`
     width: 20rem;
-  `,
-  hidden: css`
-    width: 1px;
   `,
 }
 
@@ -27,7 +27,7 @@ const getCssColor = (active: boolean) => {
 }
 
 export const Wrapper = styled.div<WrapperProps>`
-  width: 1px;
+  display: flex;
   ${({ status }) => variantsWidth[SidebarStatusEnum[status]]};
   position: ${({ smarthphone }) => (smarthphone ? 'absolute' : 'static')};
   min-height: 100%;
@@ -35,7 +35,6 @@ export const Wrapper = styled.div<WrapperProps>`
   background: var(--white);
   transition: width 0.5s ease;
   box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.2);
-  display: flex;
   flex-direction: column;
 `
 
@@ -54,7 +53,7 @@ export const ItemLink = styled(Link)<ItemProps>`
   p {
     display: ${({ status }) => (status === 'opened' ? 'block' : 'none')};
     font-size: 1rem;
-    transition: ease 0.5s;
+    transition: 0.5s ease;
     white-space: nowrap;
     ${({ active }) => getCssColor(!!active)};
   }
@@ -84,7 +83,7 @@ export const Item = styled.a<ItemProps>`
   p {
     display: ${({ status }) => (status === 'opened' ? 'block' : 'none')};
     font-size: 1rem;
-    transition: ease 0.5s;
+    transition: 0.5s ease;
     white-space: nowrap;
     color: var(--gray);
   }

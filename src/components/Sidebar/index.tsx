@@ -14,7 +14,6 @@ export const Sidebar = () => {
   const { sidebarStatus } = useSidebarContext()
   const location = useLocation()
 
-  console.log(window.innerWidth)
   const handleModal = () => {
     setIsModalOpen((oldValue) => !oldValue)
   }
