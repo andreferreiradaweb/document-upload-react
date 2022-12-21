@@ -30,6 +30,7 @@ export const Wrapper = styled.div<WrapperProps>`
   ${({ status }) => variantsWidth[SidebarStatusEnum[status]]};
   position: ${({ smarthphone }) => (smarthphone ? 'absolute' : 'static')};
   min-height: 100%;
+  z-index: 9999;
   background: var(--white);
   transition: width 0.5s ease;
   box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.2);
