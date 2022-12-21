@@ -2001,11 +2001,6 @@ react-dom@^18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-files-uploading@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-files-uploading/-/react-files-uploading-1.0.2.tgz#7fab971c32799476c59a7c0ba7dcb0af253b0bdd"
-  integrity sha512-CIsUTNZY7UvE9yW5HC9xd3rQZ5M3SoNk98pnl4CK6jDAd4RR8uUuthaNtVpooehBknciIRfIoN5jiuHBUhNu7A==
-
 react-icons@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.4.0.tgz#a13a8a20c254854e1ec9aecef28a95cdf24ef703"
