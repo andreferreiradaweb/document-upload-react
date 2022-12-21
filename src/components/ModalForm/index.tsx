@@ -1,8 +1,10 @@
 import Modal from 'react-modal'
 import { MdClose } from 'react-icons/md'
+import { HiCheck } from 'react-icons/hi'
 import { customStyleModal } from './customStyle'
 import {
   CloseButton,
+  IconButtonWrapper,
   InputDocument,
   ModalContent,
   Title,
@@ -41,7 +43,7 @@ export const ModalForm = ({
             <Input
               disabled={false}
               style={{ marginTop: '10px' }}
-              label="Titulo"
+              label="Insira um titulo *"
               name="title"
               maxLength={100}
               onChange={onChange}
@@ -49,7 +51,7 @@ export const ModalForm = ({
             />
             <Textarea
               disabled={false}
-              label="Descrição"
+              label="Escolha uma descrição"
               name="description"
               maxLength={2000}
               onChange={onChange}
@@ -73,6 +75,10 @@ export const ModalForm = ({
           <WrapperButtons>
             <Button secondary type="button" onClickButton={handleLoadFile}>
               Localizar arquivo
+              <IconButtonWrapper>
+                {!inputValues.file && <HiCheck size="22" fill="var(--gray)" />}
+                {inputValues.file && <HiCheck size="22" fill="green" />}
+              </IconButtonWrapper>
             </Button>
             <Button type="submit">Adicionar</Button>
           </WrapperButtons>

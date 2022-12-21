@@ -20,6 +20,7 @@ export const ButtonElement = styled.button<ButtonProps>`
   padding: 7px 10px;
   width: 200px;
   border-radius: 8px;
+  position: relative;
 
   @media screen and (max-width: 576px) {
     width: 100%;

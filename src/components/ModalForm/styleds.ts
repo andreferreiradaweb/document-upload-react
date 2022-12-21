@@ -56,3 +56,10 @@ export const CloseButton = styled.button`
   background-color: transparent;
   border: none;
 `
+
+export const IconButtonWrapper = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border: none;
+`
