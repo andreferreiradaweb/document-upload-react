@@ -4,10 +4,6 @@ export type FormDocumentProviderProps = {
   children: ReactNode
 }
 
-export type HandleToggleModalType = {
-  isModalEdit?: boolean
-}
-
 export type DocumentType = {
   id: string | null
   title: string
@@ -23,7 +19,7 @@ export type FormDocumentContextTypes = {
   currentDocument: DocumentType
   documents: DocumentType[]
   handleInputDocumentChange(e: ChangeEvent<HTMLInputElement>): void
-  handleToggleModal({ isModalEdit }: HandleToggleModalType): void
+  handleToggleModal(): void
   isModalOpen: boolean
   handleDeleteDocument(id: string): void
   handleEditDocument(id: string): void

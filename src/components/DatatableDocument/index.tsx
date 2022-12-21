@@ -1,11 +1,13 @@
 import DataTable from 'react-data-table-component'
 import { HiOutlineTrash, HiOutlinePencil } from 'react-icons/hi'
+import { MdDownloading } from 'react-icons/md'
 import { datatableStyles } from './customStyles'
 import { DatatableButton, WrapperDataTable } from './styleds'
 import { DatatableDocumentProps } from './types'
 import { format } from 'date-fns'
 import { DocumentType } from '../../contexts/formDocumentContext/types'
 import { useFormDocumentContext } from '../../contexts/formDocumentContext'
+import { getDowwnloadFromFile } from '../../utils/downloadFileButton'
 
 export const DatatableDocument = ({
   documents = [],
@@ -29,14 +31,15 @@ export const DatatableDocument = ({
     {
       id: 3,
       name: 'Nome do Arquivo',
-      selector: (row: DocumentType) => row.file.name,
+      selector: (row: DocumentType) => row.file?.name,
       sortable: true,
       reorder: true,
     },
     {
       id: 4,
       name: 'Data e Hora de Criação',
-      selector: (row: DocumentType) => format(row.date, 'dd/mm/yyyy HH:mm'),
+      selector: (row: DocumentType) =>
+        format(row.date ?? new Date(), 'dd/mm/yyyy HH:mm'),
       sortable: true,
       reorder: true,
     },
@@ -47,12 +50,20 @@ export const DatatableDocument = ({
         <>
           <DatatableButton
             style={{ marginRight: '10px' }}
-            onClick={() => handleDeleteDocument(row.id)}
+            onClick={() => handleDeleteDocument(String(row.id))}
           >
             <HiOutlineTrash />
           </DatatableButton>
-          <DatatableButton onClick={() => handleEditDocument(row.id)}>
+          <DatatableButton
+            style={{ marginRight: '10px' }}
+            onClick={() => handleEditDocument(String(row.id))}
+          >
             <HiOutlinePencil />
+          </DatatableButton>
+          <DatatableButton
+            onClick={() => getDowwnloadFromFile(row.file as File)}
+          >
+            <MdDownloading />
           </DatatableButton>
         </>
       ),

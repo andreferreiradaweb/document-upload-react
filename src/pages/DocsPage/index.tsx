@@ -20,7 +20,7 @@ export const DocsPage = () => {
     <Layout>
       <Wrapper>
         <ModalForm
-          onRequestClose={() => handleToggleModal({ isModalEdit: false })}
+          onRequestClose={handleToggleModal}
           isOpen={isModalOpen}
           onChange={handleChange}
           onChangeInputFile={handleInputDocumentChange}
@@ -28,10 +28,7 @@ export const DocsPage = () => {
           inputValues={currentDocument}
         />
         <DatatableDocument documents={documents} />
-        <Button
-          type="button"
-          onClickButton={() => handleToggleModal({ isModalEdit: false })}
-        >
+        <Button type="button" onClickButton={handleToggleModal}>
           Adicionar novo arquivo
         </Button>
       </Wrapper>
