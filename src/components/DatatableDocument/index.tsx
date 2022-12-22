@@ -7,7 +7,7 @@ import { DatatableDocumentProps } from './types'
 import { format } from 'date-fns'
 import { DocumentType } from '../../contexts/formDocumentContext/types'
 import { useFormDocumentContext } from '../../contexts/formDocumentContext'
-import { getDowwnloadFromFile } from '../../utils/downloadFileButton'
+import { getDownloadFromFile } from '../../utils/downloadFileButton'
 
 export const DatatableDocument = ({
   documents = [],
@@ -61,7 +61,7 @@ export const DatatableDocument = ({
             <HiOutlinePencil />
           </DatatableButton>
           <DatatableButton
-            onClick={() => getDowwnloadFromFile(row.file as File)}
+            onClick={() => getDownloadFromFile(row.file as File)}
           >
             <MdDownloading />
           </DatatableButton>
