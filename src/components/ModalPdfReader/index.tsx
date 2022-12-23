@@ -14,6 +14,7 @@ export const ModalPdfReader = ({
     <Modal style={customStyleModal} isOpen={isOpen} ariaHideApp={false}>
       <ModalWrapper>
         <Title>{values.currentDocument.title}</Title>
+        <p>{values.currentDocument.description}</p>
         <CloseButton onClick={onRequestClose}>
           <MdClose size="22" />
         </CloseButton>

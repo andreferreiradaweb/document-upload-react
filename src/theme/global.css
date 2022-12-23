@@ -72,3 +72,10 @@ a {
     font-size: 87.5%;
   }
 }
+
+/**
+CSS TO REMOVE BUG ON PDF READER
+**/
+.rpv-core__text-layer {
+  display: none;
+}

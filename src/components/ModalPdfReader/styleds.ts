@@ -20,7 +20,10 @@ export const ModalWrapper = styled.div`
 export const Title = styled.h2`
   margin-bottom: 10px;
   align-self: center;
+  color: var(--gray-text);
 `
+
+export const Paragraph = styled.p``
 
 export const CloseButton = styled.button`
   position: absolute;
