@@ -4,7 +4,7 @@ export const customStyleModal = {
     zIndex: '2',
   },
   content: {
-    maxWidth: '600px',
+    maxWidth: '800px',
     margin: 'auto',
     borderRadius: '8px',
   },

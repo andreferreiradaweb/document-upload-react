@@ -4,8 +4,8 @@ export const ModalWrapper = styled.div`
   padding: 15px;
   display: flex;
   width: 100%;
-  min-height: 80%;
-  padding: 20px;
+  min-height: 100%;
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -10,7 +10,7 @@ export const PdfReaderComponent = ({
   return (
     <div
       style={{
-        height: '450px',
+        height: '390px',
         border: '1px solid var(--gray)',
       }}
     >

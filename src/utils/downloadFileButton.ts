@@ -7,11 +7,11 @@ export const downloadFromFile = async (file: File) => {
   fetch(base64Url).then((response) => {
     response.blob().then((blob) => {
       // Creating new object of PDF file
-      const fileURL = window.URL.createObjectURL(blob)
+      const fileURL = URL.createObjectURL(blob)
       // Setting various property values
       const alink = document.createElement('a')
       alink.href = fileURL
-      alink.download = String(base64)
+      alink.download = String(file)
       alink.click()
     })
   })
