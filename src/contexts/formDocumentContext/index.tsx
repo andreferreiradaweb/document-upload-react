@@ -7,6 +7,7 @@ import {
   DocumentType,
   FormDocumentContextTypes,
   FormDocumentProviderProps,
+  HandleOpenReaderTypes,
 } from './types'
 
 const FormDocumentContext = createContext({} as FormDocumentContextTypes)
@@ -16,16 +17,26 @@ export const FormDocumentProvider = ({
 }: FormDocumentProviderProps) => {
   const [documents, setDocuments] = useState<DocumentType[]>([])
   const [isModalEdit, setIsModalEdit] = useState<boolean>(false)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [isModalReaderOpen, setIsModalReaderOpen] = useState<boolean>(false)
+  const [base64PdfFile, setBase64PdfFile] = useState<string | null>(null)
   const [currentDocument, setCurrentDocument] = useState<DocumentType>(
     initialDocumentValues
   )
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const handleToggleModal = () => {
     if (isModalEdit) {
       return setIsModalOpen((oldValue) => !oldValue)
     }
     setIsModalOpen((oldValue) => !oldValue)
+    setCurrentDocument(initialDocumentValues)
+  }
+
+  const handleToggleModalReader = () => {
+    if (!isModalReaderOpen) {
+      return setIsModalReaderOpen((oldValue) => !oldValue)
+    }
+    setIsModalReaderOpen((oldValue) => !oldValue)
     setCurrentDocument(initialDocumentValues)
   }
 
@@ -67,6 +78,24 @@ export const FormDocumentProvider = ({
     )
     setDocuments(newDocuments)
     Notify(NotifyTypes.SUCCESS, 'Documento deletado com sucesso!')
+  }
+
+  function getBase64FromFile(file: File) {
+    if (!file) return
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = (e) => {
+      if (typeof e.target?.result !== 'string') return
+      setBase64PdfFile(e.target?.result)
+    }
+  }
+
+  const handleOpenReader = ({ file, documentId }: HandleOpenReaderTypes) => {
+    const document = documents?.find((document) => document.id === documentId)
+    if (!document) return
+    getBase64FromFile(file)
+    setCurrentDocument({ ...document })
+    handleToggleModalReader()
   }
 
   const handleEditDocument = (documentId: string) => {
@@ -149,6 +178,10 @@ export const FormDocumentProvider = ({
     isModalOpen,
     handleDeleteDocument,
     handleEditDocument,
+    base64PdfFile,
+    handleToggleModalReader,
+    isModalReaderOpen,
+    handleOpenReader,
   }
 
   return (

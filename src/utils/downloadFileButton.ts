@@ -1,6 +1,6 @@
 import { getBase64, getBlobFromBase64 } from './getBase64'
 
-export const getDownloadFromFile = async (file: File) => {
+export const downloadFromFile = async (file: File) => {
   // using Java Script method to get PDF file
   const base64 = await getBase64(file)
   const base64Url = URL.createObjectURL(getBlobFromBase64(base64 as string))

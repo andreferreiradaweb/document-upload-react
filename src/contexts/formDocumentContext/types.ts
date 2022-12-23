@@ -13,6 +13,11 @@ export type DocumentType = {
   date: Date | null
 }
 
+export type HandleOpenReaderTypes = {
+  documentId: string
+  file: File
+}
+
 export type FormDocumentContextTypes = {
   handleChange(e: ChangeEvent<HTMLInputElement>): void
   handleSubmit(e: FormEvent<HTMLFormElement>): void
@@ -23,4 +28,8 @@ export type FormDocumentContextTypes = {
   isModalOpen: boolean
   handleDeleteDocument(id: string): void
   handleEditDocument(id: string): void
+  base64PdfFile: string | null
+  handleToggleModalReader(): void
+  isModalReaderOpen: boolean
+  handleOpenReader({ file, documentId }: HandleOpenReaderTypes): void
 }

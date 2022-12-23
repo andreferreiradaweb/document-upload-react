@@ -4,6 +4,7 @@ import { ModalForm } from '../../components/ModalForm'
 import { Wrapper } from './styleds'
 import { Button } from '../../components/Button'
 import { useFormDocumentContext } from '../../contexts/formDocumentContext'
+import { ModalPdfReader } from '../../components/ModalPdfReader'
 
 export const DocsPage = () => {
   const {
@@ -14,6 +15,9 @@ export const DocsPage = () => {
     documents,
     currentDocument,
     handleInputDocumentChange,
+    handleToggleModalReader,
+    isModalReaderOpen,
+    base64PdfFile,
   } = useFormDocumentContext()
 
   return (
@@ -26,6 +30,11 @@ export const DocsPage = () => {
           onChangeInputFile={handleInputDocumentChange}
           onSubmit={handleSubmit}
           inputValues={currentDocument}
+        />
+        <ModalPdfReader
+          onRequestClose={handleToggleModalReader}
+          isOpen={isModalReaderOpen}
+          values={{ currentDocument, base64FileUrl: base64PdfFile ?? '' }}
         />
         <DatatableDocument documents={documents} />
         <Button type="button" onClickButton={handleToggleModal}>

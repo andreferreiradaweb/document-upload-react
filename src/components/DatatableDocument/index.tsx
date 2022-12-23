@@ -1,18 +1,22 @@
 import DataTable from 'react-data-table-component'
-import { HiOutlineTrash, HiOutlinePencil } from 'react-icons/hi'
+import { HiOutlineTrash, HiOutlineEye, HiOutlinePencil } from 'react-icons/hi'
 import { MdDownloading } from 'react-icons/md'
 import { datatableStyles } from './customStyles'
 import { DatatableButton, WrapperDataTable } from './styleds'
 import { DatatableDocumentProps } from './types'
 import { format } from 'date-fns'
-import { DocumentType } from '../../contexts/formDocumentContext/types'
+import {
+  DocumentType,
+  HandleOpenReaderTypes,
+} from '../../contexts/formDocumentContext/types'
 import { useFormDocumentContext } from '../../contexts/formDocumentContext'
-import { getDownloadFromFile } from '../../utils/downloadFileButton'
+import { downloadFromFile } from '../../utils/downloadFileButton'
 
 export const DatatableDocument = ({
   documents = [],
 }: DatatableDocumentProps) => {
-  const { handleDeleteDocument, handleEditDocument } = useFormDocumentContext()
+  const { handleDeleteDocument, handleEditDocument, handleOpenReader } =
+    useFormDocumentContext()
   const headers: any = [
     {
       id: 1,
@@ -61,9 +65,20 @@ export const DatatableDocument = ({
             <HiOutlinePencil />
           </DatatableButton>
           <DatatableButton
-            onClick={() => getDownloadFromFile(row.file as File)}
+            style={{ marginRight: '10px' }}
+            onClick={() => downloadFromFile(row.file as File)}
           >
             <MdDownloading />
+          </DatatableButton>
+          <DatatableButton
+            onClick={() =>
+              handleOpenReader({
+                file: row.file as File,
+                documentId: String(row.id),
+              })
+            }
+          >
+            <HiOutlineEye />
           </DatatableButton>
         </>
       ),
